@@ -1,0 +1,12 @@
+# Files the scripts rebuild every time -- they do not go into Git.
+**/data/db/*.sqlite
+**/data/interim/
+**/data/processed/
+**/output/
+**/logs/*
+!**/logs/.gitkeep
+# RStudio and R session files
+.Rproj.user/
+**/.Rproj.user/
+.Rhistory
+.RData
