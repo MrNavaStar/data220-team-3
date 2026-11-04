@@ -1,7 +1,7 @@
 # config.R -- YOUR project's data: the sources, what you found in them, and the tables
 # you plan. Lab 7 starts it; Lab 8 builds on it. Write names exactly as in SUBMISSION.md.
 
-PROJECT <- "TODO: your project title"
+PROJECT <- "Analyzing Traffic Collisions and Road Safety in Edmonton"
 
 # =============================================================================
 # P1 -- Sources: one entry per data source
@@ -64,6 +64,10 @@ SOURCES <- list(
 #   FOUND (example): sales Date is in 2 formats (2026-10-01, 10/15/2026) -> parse_dates_mixed()
 #
 # =============================================================================
+# FOUND: top_collision_locations LOCATION TYPE mixes case and naming variants ("Intersection", "INTERSECTION", "Midblock", "MID STREET") -> standardize_text() + recode_values()
+# FOUND: collision_injuries Injury Mode has spelling variants ("VEHICLE PASSENGR", "VEHICLE PASSENGER") -> standardize_text() + recode_values()
+# FOUND: collision_temporal Collision_Classification has mixed capitalization and labels ("Minor", "Serious", "Fatal", "Major", "PDO") -> standardize_text(case = "title") + recode_values()
+# FOUND: collision_injuries Injury Gender includes both explicit categories and a catch-all label ("MALE", "FEMALE", "UNKNOWN", "Others") -> standardize_text(case = "title") + recode_values()
 
 # =============================================================================
 # P4 -- The tables you plan (preliminary: they may change once you know your data)
@@ -76,12 +80,16 @@ SOURCES <- list(
 #   items = list(grain = "one row per menu item",    key = "item",            owner = "Sam Example"),
 # =============================================================================
 TABLES <- list(
-  table_1 = list(grain = "TODO", key = "TODO", owner = "TODO"),
-  table_2 = list(grain = "TODO", key = "TODO", owner = "TODO")
+  severity = list(grain = "one row per year", key = "year", owner = "Team Member 1, Team Member 2"),
+  locations = list(grain = "one row per year, location type, and rank", key = c("year", "location_type", "rank"), owner = "Team Member 1"),
+  temporal = list(grain = "one row per year, month, hour, and day classification", key = c("year", "month_name", "hour", "day_of_week", "weekend_flag", "collision_classification"), owner = "Team Member 2"),
+  injuries = list(grain = "one row per year and injury detail", key = c("year", "injury_severity", "age_group", "gender", "traffic_control", "injury_mode"), owner = "Team Member 1, Team Member 2")
 )
 
 # How the tables link: child -> parent, through a shared key column. E.g.
 #   list(child = "sales", parent = "items", key = "item")
 LINKS <- list(
-  list(child = "TODO", parent = "TODO", key = "TODO")
+  list(child = "locations", parent = "severity", key = "year"),
+  list(child = "temporal", parent = "severity", key = "year"),
+  list(child = "injuries", parent = "severity", key = "year")
 )
