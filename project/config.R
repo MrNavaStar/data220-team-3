@@ -44,7 +44,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/jduq-w5pj",
     file = "data/raw/collision_temporal.csv",
-    owner = "Ethan Stevenson"
+    owner = "Vedsai Vangapandu"
   ),
 
   injuries = list(
@@ -53,7 +53,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/brx6-rwhf",
     file = "data/raw/collision_injuries.csv",
-    owner = "Ethan Stevenson"
+    owner = "Vedsai Vangapandu"
   )
 )
 
@@ -68,6 +68,9 @@ SOURCES <- list(
 # FOUND: collision_injuries Injury Mode has spelling variants ("VEHICLE PASSENGR", "VEHICLE PASSENGER") -> standardize_text() + recode_values()
 # FOUND: collision_temporal Collision_Classification has mixed capitalization and labels ("Minor", "Serious", "Fatal", "Major", "PDO") -> standardize_text(case = "title") + recode_values()
 # FOUND: collision_injuries Injury Gender includes both explicit categories and a catch-all label ("MALE", "FEMALE", "UNKNOWN", "Others") -> standardize_text(case = "title") + recode_values()
+# FOUND: locations ranks tie within year/type, so (year, location_type, rank) repeats; adding location_description makes the raw-data key unique.
+# FOUND: temporal rows differ by season and hour group; the six-field Lab 7 key repeats, while the complete eight-field dimension key is unique in the raw CSV.
+# CHECK: verify these candidate keys again with check_key() after cleaning, as capitalization/recode decisions may change the records.
 
 # =============================================================================
 # P4 -- The tables you plan (preliminary: they may change once you know your data)
@@ -81,9 +84,15 @@ SOURCES <- list(
 # =============================================================================
 TABLES <- list(
   severity = list(grain = "one row per year", key = "year", owner = "Ethan Stevenson"),
-  locations = list(grain = "one row per year, location type, and rank", key = c("year", "location_type", "rank"), owner = "Ethan Stevenson"),
-  temporal = list(grain = "one row per year, month, hour, and day classification", key = c("year", "month_name", "hour", "day_of_week", "weekend_flag", "collision_classification"), owner = "Ethan Stevenson"),
-  injuries = list(grain = "one row per year and injury detail", key = c("year", "injury_severity", "age_group", "gender", "traffic_control", "injury_mode"), owner = "Ethan Stevenson")
+  locations = list(grain = "one row per year, location type, rank, and location description (tied ranks allowed)",
+                   key = c("year", "location_type", "rank", "location_description"),
+                   owner = "Ethan Stevenson"),
+  temporal = list(grain = "one row per year, season, month, hour, hour group, weekend flag, weekday, and collision classification",
+                  key = c("year", "season", "month_name", "hour", "hour_group", "weekend_flag", "day_of_week", "collision_classification"),
+                  owner = "Vedsai Vangapandu"),
+  injuries = list(grain = "one row per year, injury severity, age group, gender, traffic control, and road-user mode",
+                  key = c("year", "injury_severity", "age_group", "gender", "traffic_control", "injury_mode"),
+                  owner = "Vedsai Vangapandu")
 )
 
 # How the tables link: child -> parent, through a shared key column. E.g.
