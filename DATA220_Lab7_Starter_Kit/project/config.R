@@ -20,8 +20,41 @@ PROJECT <- "TODO: your project title"
 #                file = "data/raw/sales", owner = "Alex Example"),
 # =============================================================================
 SOURCES <- list(
-  source_1 = list(what = "TODO", format = "TODO", get = "TODO",
-                  link = "TODO", file = "TODO", owner = "TODO")
+  severity = list(
+    what = "Annual collision totals and severity, including road-user collisions, injuries and fatalities",
+    format = "csv",
+    get = "download",
+    link = "https://data.edmonton.ca/d/77sf-j5rj",
+    file = "data/raw/collision_severity.csv",
+    owner = "TODO"
+  ),
+
+  locations = list(
+    what = "Top collision locations, including year, location type, rank, location description and collision count",
+    format = "csv",
+    get = "download",
+    link = "https://data.edmonton.ca/d/mf6n-s5ts",
+    file = "data/raw/top_collision_locations.csv",
+    owner = "TODO"
+  ),
+
+  temporal = list(
+    what = "Annual Collision Report temporal data for examining when collisions occur",
+    format = "csv",
+    get = "download",
+    link = "https://data.edmonton.ca/d/jduq-w5pj",
+    file = "data/raw/collision_temporal.csv",
+    owner = "TODO"
+  ),
+
+  injuries = list(
+    what = "Annual collision fatalities and injuries",
+    format = "csv",
+    get = "download",
+    link = "https://data.edmonton.ca/d/brx6-rwhf",
+    file = "data/raw/collision_injuries.csv",
+    owner = "TODO"
+  )
 )
 
 # =============================================================================
