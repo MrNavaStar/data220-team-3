@@ -26,7 +26,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/77sf-j5rj",
     file = "data/raw/collision_severity.csv",
-    owner = "TODO"
+    owner = "Ethan Stevenson"
   ),
 
   locations = list(
@@ -35,7 +35,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/mf6n-s5ts",
     file = "data/raw/top_collision_locations.csv",
-    owner = "TODO"
+    owner = "Ethan Stevenson"
   ),
 
   temporal = list(
@@ -44,7 +44,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/jduq-w5pj",
     file = "data/raw/collision_temporal.csv",
-    owner = "TODO"
+    owner = "Ethan Stevenson"
   ),
 
   injuries = list(
@@ -53,7 +53,7 @@ SOURCES <- list(
     get = "download",
     link = "https://data.edmonton.ca/d/brx6-rwhf",
     file = "data/raw/collision_injuries.csv",
-    owner = "TODO"
+    owner = "Ethan Stevenson"
   )
 )
 
@@ -80,10 +80,10 @@ SOURCES <- list(
 #   items = list(grain = "one row per menu item",    key = "item",            owner = "Sam Example"),
 # =============================================================================
 TABLES <- list(
-  severity = list(grain = "one row per year", key = "year", owner = "Team Member 1, Team Member 2"),
-  locations = list(grain = "one row per year, location type, and rank", key = c("year", "location_type", "rank"), owner = "Team Member 1"),
-  temporal = list(grain = "one row per year, month, hour, and day classification", key = c("year", "month_name", "hour", "day_of_week", "weekend_flag", "collision_classification"), owner = "Team Member 2"),
-  injuries = list(grain = "one row per year and injury detail", key = c("year", "injury_severity", "age_group", "gender", "traffic_control", "injury_mode"), owner = "Team Member 1, Team Member 2")
+  severity = list(grain = "one row per year", key = "year", owner = "Ethan Stevenson"),
+  locations = list(grain = "one row per year, location type, and rank", key = c("year", "location_type", "rank"), owner = "Ethan Stevenson"),
+  temporal = list(grain = "one row per year, month, hour, and day classification", key = c("year", "month_name", "hour", "day_of_week", "weekend_flag", "collision_classification"), owner = "Ethan Stevenson"),
+  injuries = list(grain = "one row per year and injury detail", key = c("year", "injury_severity", "age_group", "gender", "traffic_control", "injury_mode"), owner = "Ethan Stevenson")
 )
 
 # How the tables link: child -> parent, through a shared key column. E.g.
