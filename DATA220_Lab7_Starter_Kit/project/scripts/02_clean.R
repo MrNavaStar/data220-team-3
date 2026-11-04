@@ -21,7 +21,55 @@ log_msg("02_clean: start")
 #   sales <- mutate(sales, item = standardize_text(item, case = "title"))
 #   # CHECK:    find_text_variants(sales, "item") now finds nothing.
 
-# your steps here
+# =============================== injuries =============================================
+# FOUND:    profile_raw_file(SOURCES$injuries$file) shows source column names contain
+#           spaces and punctuation; the table plan uses simple key names.
+# DECISION: clean_names() makes the source headers usable, then rename_columns() aligns
+#           the key columns with TABLES$injuries$key.
+injuries <- read_raw_csv("data/interim/injuries_raw.csv") |>
+  clean_names() |>
+  rename_columns(c(
+    collision_report_year = "year",
+    injury_age_group = "age_group",
+    injury_gender = "gender",
+    traffic_control_name = "traffic_control"
+  ))
+# CHECK:    every planned key column is present after the names are standardized.
+stopifnot(all(TABLES$injuries$key %in% names(injuries)))
 
+# FOUND:    profile_raw_file() identifies year and the injury/fatality total as numbers,
+#           but read_raw_csv() deliberately keeps source values as text.
+# DECISION: to_number() converts only those measured fields, preserving categories as text.
+injuries <- injuries |>
+  mutate(
+    year = to_number(year),
+    sum_of_injuries_and_fatalities = to_number(sum_of_injuries_and_fatalities)
+  )
+# CHECK:    both numeric columns converted without creating missing values.
+check_no_missing(injuries, c("year", "sum_of_injuries_and_fatalities"), "injuries numeric fields")
+
+# FOUND:    count_values(injuries, "injury_mode") shows the source spelling
+#           "VEHICLE PASSENGR"; count_values(injuries, "gender") shows "Others".
+# DECISION: standardize_text() fixes case and spacing; recode_values() corrects the
+#           documented Injury Mode spelling without merging the "Others" category.
+injuries <- injuries |>
+  mutate(across(
+    c(injury_severity, age_group, gender, traffic_control, injury_mode),
+    ~ standardize_text(.x, case = "title")
+  )) |>
+  mutate(injury_mode = recode_values(
+    injury_mode,
+    c("Vehicle Passengr" = "Vehicle Passenger")
+  ))
+# CHECK:    the mode labels are standardized and the known misspelling is absent.
+check_allowed(
+  injuries$injury_mode,
+  c("Bicyclist", "E-Scooter Rider", "Motorcyclist", "Other", "Pedestrian",
+    "Unknown", "Vehicle Driver", "Vehicle Passenger"),
+  "injury_mode"
+)
+
+check_key(injuries, TABLES$injuries$key, "injuries")
+save_csv(injuries, "data/interim/injuries_clean.csv")
 
 log_msg("02_clean: done")
