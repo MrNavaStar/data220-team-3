@@ -219,14 +219,15 @@ check_columns <- function(df, expected, name = "table") {
 #   4. When USE_SAVED_SAMPLE is TRUE, list.files() finds the existing pages
 #      instead of making requests.
 # ============================================================================
-api_get_pages <- function(url, fields, where, page_size, max_pages, raw_dir) {
+api_get_pages <- function(url, fields, where, page_size, max_pages,
+                          raw_dir, dataset_name = "temporal") {
   # Build base URL with $select and $where
   base_url <- paste0(url, "?$select=", fields)
   if (!is.null(where)) {
     base_url <- paste0(base_url, "&$where=", URLencode(where, reserved = TRUE))
   }
 
-  dir.create(file.path(raw_dir, "temporal"), recursive = TRUE, showWarnings = FALSE)
+  dir.create(file.path(raw_dir, dataset_name), recursive = TRUE, showWarnings = FALSE)
 
   if (!USE_SAVED_SAMPLE) {
     # Fetch pages from the API
@@ -234,7 +235,7 @@ api_get_pages <- function(url, fields, where, page_size, max_pages, raw_dir) {
       offset <- (page - 1) * page_size
       api_url <- paste0(base_url, "&$limit=", page_size, "&$offset=", offset)
 
-      page_file <- file.path(raw_dir, "temporal", sprintf("page_%03d.json", page))
+      page_file <- file.path(raw_dir, dataset_name, sprintf("page_%03d.json", page))
 
       # Download the JSON response
       download.file(api_url, page_file, mode = "wb", quiet = TRUE)
@@ -252,19 +253,19 @@ api_get_pages <- function(url, fields, where, page_size, max_pages, raw_dir) {
   } else {
     # Read saved sample pages
     page_files <- list.files(
-      file.path(raw_dir, "temporal"),
+      file.path(raw_dir, dataset_name),
       pattern = "\\.json$",
       full.names = TRUE
     )
     if (length(page_files) > 0) {
       log_msg("api: using ", length(page_files), " saved page(s) from ",
-             file.path(raw_dir, "temporal"))
+             file.path(raw_dir, dataset_name))
     }
   }
 
   # Return list of JSON files (whether fetched or saved)
   list.files(
-    file.path(raw_dir, "temporal"),
+    file.path(raw_dir, dataset_name),
     pattern = "\\.json$",
     full.names = TRUE
   )
