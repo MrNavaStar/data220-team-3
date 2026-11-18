@@ -92,6 +92,12 @@ SOURCES <- list(
 # ("VEHICLE PASSENGR", "VEHICLE PASSENGER").
 # DECISION: standardize_text() + recode_values().
 
+# FOUND: collision_temporal (API) column names use hyphenated snake_case
+# (e.g. collision_report_year, hour_group_name). The TABLES key uses
+# simplified names (year, season, month_name, hour, hour_group,
+# weekend_flag, day_of_week, collision_classification).
+# DECISION: rename_columns() after clean_names() aligns them.
+#
 # FOUND: collision_temporal Collision_Classification has mixed capitalization
 # and labels ("Minor", "Serious", "Fatal", "Major", "PDO").
 # DECISION: standardize_text(case = "title") + recode_values().
@@ -190,6 +196,8 @@ LINKS <- list(
 # =============================================================================
 # LAB 8 HANDOFF NOTES
 # =============================================================================
+
+DB_PATH <- "data/db/project.sqlite"              # built by scripts/05_load_db.R
 
 # B1: API configuration is defined above.
 #

@@ -1,5 +1,5 @@
 # R/functions_setup.R -- folders, the log, saving files.
-# Functions: make_folders(), log_msg(), save_csv()
+# Functions: make_folders(), log_msg(), save_csv(), save_as_sample()
 
 # Date formats the toolkit tries, in this order: 2026-01-31, 01/31/2026, 31-Jan-2026, 2026/01/31.
 DATE_FORMATS <- c("%Y-%m-%d", "%m/%d/%Y", "%d-%b-%Y", "%Y/%m/%d")
@@ -79,4 +79,29 @@ save_csv <- function(df, path) {
   write.csv(df, path, row.names = FALSE)
   log_msg("saved ", nrow(df), " rows -> ", path)
   invisible(path)
+}
+
+
+# ============================================================================
+# save_as_sample(src_dir, dest_dir)
+# LEVEL     core
+# PURPOSE   Copy every file from a raw API download folder into a sample
+#           folder, so future runs can use USE_SAVED_SAMPLE = TRUE without
+#           needing internet access.
+# USE WHEN  after a successful live API run (B3).
+# ARGUMENTS src_dir  : the source folder (e.g. "data/raw/api/temporal")
+#           dest_dir : the destination sample folder (e.g. "data/sample/temporal")
+# RETURNS   invisibly the number of files copied
+# EXAMPLE
+#   save_as_sample("data/raw/api/temporal", "data/sample/temporal")
+#   #> copied 2 file(s) -> data/sample/temporal
+# ============================================================================
+save_as_sample <- function(src_dir, dest_dir) {
+  dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
+  files <- list.files(src_dir, full.names = TRUE)
+  for (f in files) {
+    file.copy(f, dest_dir, overwrite = TRUE)
+  }
+  log_msg("copied ", length(files), " file(s) -> ", dest_dir)
+  invisible(length(files))
 }

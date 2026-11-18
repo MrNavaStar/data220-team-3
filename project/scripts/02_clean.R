@@ -72,4 +72,51 @@ check_allowed(
 check_key(injuries, TABLES$injuries$key, "injuries")
 save_csv(injuries, "data/interim/injuries_clean.csv")
 
+# =============================== temporal ===========================================
+# TEMPORAL API EXTRACTION (Lab 8 B4)
+# The temporal data comes from the City of Edmonton API as JSON records.
+# Column names are hyphenated snake_case (e.g. collision_report_year, hour_group_name)
+# and need to be renamed to match the TABLES key.
+
+# DECISION: clean_names() has already been applied by read_json_records() (all columns
+# are text), then rename_columns() maps API column names to the TABLES key names.
+temporal <- read_raw_csv("data/interim/temporal_raw.csv") |>
+  rename_columns(c(
+    collision_report_year = "year",
+    collision_report_month_name = "month_name",
+    collision_report_hour = "hour",
+    hour_group_name = "hour_group",
+    is_weekend = "weekend_flag",
+    day_of_week_name = "day_of_week"
+  ))
+
+# CHECK: every planned key column is present after the names are standardized.
+stopifnot(all(TABLES$temporal$key %in% names(temporal)))
+
+# FOUND: year, hour, and collisions are numeric but kept as text by read_json_records().
+# DECISION: to_number() converts only those measured/categorical-numeric fields.
+temporal <- temporal |>
+  mutate(
+    year = to_number(year),
+    hour = to_number(hour),
+    collisions = to_number(collisions)
+  )
+# CHECK: numeric columns converted without creating missing values.
+check_no_missing(temporal, c("year", "hour", "collisions"), "temporal numeric fields")
+
+# FOUND: count_values(temporal, "collision_classification") shows labels like
+# "Minor", "PDO", "Major". count_values(temporal, "weekend_flag") shows "WEEKDAY",
+# "WEEKEND". count_values(temporal, "season") shows "WINTER", "SPRING", etc.
+# DECISION: standardize_text() ensures consistent capitalization for all text columns.
+temporal <- temporal |>
+  mutate(across(
+    c(season, month_name, hour_group, weekend_flag, day_of_week, collision_classification),
+    ~ standardize_text(.x, case = "title")
+  ))
+
+# CHECK: the key columns have consistent text formatting.
+# CHECK: verify the table key is unique with check_key().
+check_key(temporal, TABLES$temporal$key, "temporal")
+save_csv(temporal, "data/interim/temporal_clean.csv")
+
 log_msg("02_clean: done")

@@ -1,5 +1,6 @@
 # R/functions_read.R -- getting raw files into R without changing them.
-# Functions: read_raw_csv(), read_many_csv(), read_any_file(), download_csv(), check_columns()
+# Functions: read_raw_csv(), read_many_csv(), read_any_file(), download_csv(), check_columns(),
+#            api_get_pages(), read_json_records()
 
 
 # ============================================================================
@@ -185,4 +186,140 @@ check_columns <- function(df, expected, name = "table") {
     stop(name, " is missing column(s): ", paste(missing, collapse = ", "))
   }
   invisible(TRUE)
+}
+
+
+# ============================================================================
+# api_get_pages(url, fields, where, page_size, max_pages, raw_dir)
+# LEVEL     core
+# PURPOSE   Fetch every page from a paginated City of Edmonton API and save each
+#           page as a JSON file.  When USE_SAVED_SAMPLE is TRUE the function
+#           skips the network and reads the pre-saved pages from data/sample/.
+# USE WHEN  extracting temporal (or other) data that lives behind the City of
+#           Edmonton open-data API.
+# ARGUMENTS url        : the .json endpoint (e.g. "https://.../resource/....json")
+#           fields     : $select string (use "*" for all fields)
+#           where      : $where clause character string, or NULL for none
+#           page_size  : $limit value (rows per page)
+#           max_pages  : safety cap on how many pages to request
+#           raw_dir    : the sub-folder inside raw_dir / data/sample or data/raw/api
+# RETURNS   a character vector of file paths (the saved JSON files)
+# EXAMPLE
+#   files <- api_get_pages(TEMPORAL_URL, TEMPORAL_FIELDS, TEMPORAL_WHERE,
+#                          TEMPORAL_PAGE_SIZE, TEMPORAL_MAX_PAGES,
+#                          if (USE_SAVED_SAMPLE) "data/sample" else "data/raw/api")
+#   #> [1] "data/sample/temporal/page_001.json" "data/sample/temporal/page_002.json"
+# HOW THE CODE WORKS
+#   1. Build the base URL with $select and optional $where (stringr::str_c).
+#   2. A for loop iterates page 1 .. max_pages, computing $offset each time
+#      (Week 10: (page - 1) * page_size).
+#   3. download.file() grabs the JSON; jsonlite::write_json() (via cat + json)
+#      saves it.  The file name uses zero-padded page numbers so they sort
+#      correctly.
+#   4. When USE_SAVED_SAMPLE is TRUE, list.files() finds the existing pages
+#      instead of making requests.
+# ============================================================================
+api_get_pages <- function(url, fields, where, page_size, max_pages, raw_dir) {
+  # Build base URL with $select and $where
+  base_url <- paste0(url, "?$select=", fields)
+  if (!is.null(where)) {
+    base_url <- paste0(base_url, "&$where=", URLencode(where, reserved = TRUE))
+  }
+
+  dir.create(file.path(raw_dir, "temporal"), recursive = TRUE, showWarnings = FALSE)
+
+  if (!USE_SAVED_SAMPLE) {
+    # Fetch pages from the API
+    for (page in seq_len(max_pages)) {
+      offset <- (page - 1) * page_size
+      api_url <- paste0(base_url, "&$limit=", page_size, "&$offset=", offset)
+
+      page_file <- file.path(raw_dir, "temporal", sprintf("page_%03d.json", page))
+
+      # Download the JSON response
+      download.file(api_url, page_file, mode = "wb", quiet = TRUE)
+
+      # Check if the file is empty or contains only an empty array
+      content <- readLines(page_file, warn = FALSE)
+      if (length(content) == 0 || all(trimws(content) %in% c("", "[]"))) {
+        # No more data; remove the empty file
+        file.remove(page_file)
+        log_msg("api: page ", page, " is empty; stopping at page ", page - 1)
+        break
+      }
+      log_msg("api: fetched page ", page, " -> ", basename(page_file))
+    }
+  } else {
+    # Read saved sample pages
+    page_files <- list.files(
+      file.path(raw_dir, "temporal"),
+      pattern = "\\.json$",
+      full.names = TRUE
+    )
+    if (length(page_files) > 0) {
+      log_msg("api: using ", length(page_files), " saved page(s) from ",
+             file.path(raw_dir, "temporal"))
+    }
+  }
+
+  # Return list of JSON files (whether fetched or saved)
+  list.files(
+    file.path(raw_dir, "temporal"),
+    pattern = "\\.json$",
+    full.names = TRUE
+  )
+}
+
+
+# ============================================================================
+# read_json_records(folder, na = c("", "NA", "N/A"))
+# LEVEL     core
+# PURPOSE   Read every JSON file in a folder (one page per file), parse the
+#           JSON arrays, combine into one data frame, and convert all columns
+#           to character text (so nothing is converted before cleaning).
+# USE WHEN  after api_get_pages() has saved page JSON files.
+# ARGUMENTS folder : the directory holding page_001.json, page_002.json, ...
+#           na     : text that means "missing"
+# RETURNS   a data frame of text columns
+# EXAMPLE
+#   records <- read_json_records("data/sample/temporal")
+#   #> read 478 rows x 8 columns from page_001.json
+#   #> read 499 rows x 8 columns from page_002.json
+#   #> combined 2 files -> 977 rows
+# HOW THE CODE WORKS
+#   1. list.files() finds the JSON files in the folder.
+#   2. A for loop reads each file with readLines() + paste0() (to get the
+#      full JSON text), then jsonlite::fromJSON() to parse it.
+#   3. Every column is coerced to character with a for loop (same as
+#      read_any_file for JSON).
+#   4. Each page is tagged with source_file and bound together with
+#      bind_rows() (Week 8).
+# ============================================================================
+read_json_records <- function(folder, na = c("", "NA", "N/A")) {
+  json_files <- list.files(folder, pattern = "\\.json$", full.names = TRUE)
+  if (length(json_files) == 0) stop("No .json files in ", folder)
+
+  parts <- list()
+  for (f in json_files) {
+    json_text <- paste(readLines(f, warn = FALSE), collapse = "\n")
+    df <- jsonlite::fromJSON(json_text, flatten = TRUE)
+
+    # Convert all columns to character
+    for (col in names(df)) {
+      df[[col]] <- as.character(df[[col]])
+    }
+
+    # Replace empty strings with NA based on na parameter
+    if (length(na) > 0 && na[1] != "") {
+      df[df == ""] <- NA
+    }
+
+    df$source_file <- basename(f)
+    log_msg("read ", nrow(df), " rows x ", ncol(df), " columns from ", basename(f))
+    parts[[basename(f)]] <- df
+  }
+
+  out <- bind_rows(parts)
+  log_msg("combined ", length(json_files), " pages -> ", nrow(out), " rows")
+  out
 }
