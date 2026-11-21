@@ -10,3 +10,12 @@
 **/.Rproj.user/
 .Rhistory
 .RData
+
+# M2: full live API responses are regenerated; commit data/sample instead.
+**/data/raw/api/
+
+# M2: secrets (optional Socrata app token) never go into Git.
+.Renviron
+**/.Renviron
+.env
+**/.env

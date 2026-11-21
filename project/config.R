@@ -5,36 +5,80 @@
 PROJECT <- "Analyzing Traffic Collisions and Road Safety in Edmonton"
 
 # =============================================================================
-# LAB 8 -- API CONFIGURATION (B1)
+# M2 TASK 1 -- CITY OF EDMONTON API CONFIGURATION
 # =============================================================================
+# All four project sources use Socrata (SODA) JSON APIs called from R via httr2.
+# Paging: $limit = page_size, $offset = (page - 1) * page_size, $order = :id.
+# Before paging, the server's count(*) is requested; the download stops if it
+# would need more than max_pages, and stops if saved rows != count(*).
+# expected_rows = the team's audited snapshot. If the City republishes a source
+# with a different count, 01_extract.R stops so the change is reviewed first.
+#
+# Verified from https://data.edmonton.ca/api/views/<id>.json on 2026-11-20:
+#   severity  77sf-j5rj  14 rows     rows updated 2024-09-24
+#   locations mf6n-s5ts  561 rows    rows updated 2026-09-02 (still 561, 2019-2023)
+#   temporal  jduq-w5pj  18,545 rows rows updated 2024-09-24
+#   injuries  brx6-rwhf  2,893 rows  rows updated 2024-09-24
+#   Licence field on all four: "See Terms of Use" -> City of Edmonton Open Data
+#   Terms of Use, version 2.1 (January 2016), PDF read 2026-11-20. It grants a
+#   worldwide, royalty-free licence to use, modify and distribute; credit is
+#   encouraged but not required; anyone redistributing the data (our committed
+#   data/sample/ JSON) must include the Terms of Use URL; no City endorsement
+#   may be implied. Metadata: update frequency "Annually", "Manual" process.
+#   No app token is needed; an optional SOCRATA_APP_TOKEN belongs in
+#   ~/.Renviron (never in this file or Git).
+OPEN_DATA_LICENSE <- "City of Edmonton Open Data Terms of Use, version 2.1 (January 2016)"
+OPEN_DATA_LICENSE_URL <- "https://www.edmonton.ca/sites/default/files/public-files/documents/Web-version2.1-OpenDataAgreement.pdf"
+OPEN_DATA_CREDIT <- "Source: City of Edmonton Open Data Portal (data.edmonton.ca), used under the City of Edmonton Open Data Terms of Use"
 
-# City of Edmonton Open Data
-# Annual Collision Report: Temporal
-# Dataset: https://data.edmonton.ca/d/jduq-w5pj
+API_CONFIG <- list(
+  severity = list(
+    dataset_id = "77sf-j5rj",
+    url = "https://data.edmonton.ca/resource/77sf-j5rj.json",
+    portal = "https://data.edmonton.ca/d/77sf-j5rj",
+    fields = "*", where = NULL,
+    page_size = 1000, max_pages = 2, expected_rows = 14
+  ),
+  locations = list(
+    dataset_id = "mf6n-s5ts",
+    url = "https://data.edmonton.ca/resource/mf6n-s5ts.json",
+    portal = "https://data.edmonton.ca/d/mf6n-s5ts",
+    fields = "*", where = NULL,
+    page_size = 1000, max_pages = 2, expected_rows = 561
+  ),
+  temporal = list(
+    dataset_id = "jduq-w5pj",
+    url = "https://data.edmonton.ca/resource/jduq-w5pj.json",
+    portal = "https://data.edmonton.ca/d/jduq-w5pj",
+    fields = "*", where = NULL,
+    page_size = 1000, max_pages = 25, expected_rows = 18545
+  ),
+  injuries = list(
+    dataset_id = "brx6-rwhf",
+    url = "https://data.edmonton.ca/resource/brx6-rwhf.json",
+    portal = "https://data.edmonton.ca/d/brx6-rwhf",
+    fields = "*", where = NULL,
+    page_size = 1000, max_pages = 5, expected_rows = 2893
+  )
+)
 
-TEMPORAL_URL <- "https://data.edmonton.ca/resource/jduq-w5pj.json"
+# Keep the Lab 8 temporal names available for earlier code/handouts.
+TEMPORAL_URL <- API_CONFIG$temporal$url
+TEMPORAL_FIELDS <- API_CONFIG$temporal$fields
+TEMPORAL_WHERE <- API_CONFIG$temporal$where
+TEMPORAL_PAGE_SIZE <- API_CONFIG$temporal$page_size
+TEMPORAL_MAX_PAGES <- API_CONFIG$temporal$max_pages
 
-# Request all available API fields initially.
-# The cleaning script will select the required columns.
-TEMPORAL_FIELDS <- "*"
-
-# No year restriction initially.
-# The sample is limited using page size and maximum pages.
-TEMPORAL_WHERE <- NULL
-
-# Maximum of 2,000 records across four API pages.
-TEMPORAL_PAGE_SIZE <- 500
-TEMPORAL_MAX_PAGES <- 4
-
-# TRUE: read saved JSON samples without internet.
-# FALSE: download fresh data from the API.
+# For grading, commit data/sample/<source>/ for EVERY API source.
+# The live download folders (data/raw/api/) are ignored by Git.
+# TRUE  = offline: read the committed JSON pages in data/sample/<source>/.
+# FALSE = live: call the API and save the responses to data/raw/api/<source>/.
+# Keep TRUE in the submitted repo. To test live without editing this file,
+# start R with the environment variable DATA220_LIVE_API=true.
 USE_SAVED_SAMPLE <- TRUE
-
-RAW_DIR <- if (USE_SAVED_SAMPLE) {
-  "data/sample"
-} else {
-  "data/raw/api"
-}
+if (identical(tolower(Sys.getenv("DATA220_LIVE_API")), "true")) USE_SAVED_SAMPLE <- FALSE
+RAW_DIR <- if (USE_SAVED_SAMPLE) "data/sample" else "data/raw/api"
+API_MANIFEST <- "data/sample/api_manifest.csv"   # retrieval record, tracked in Git
 
 # =============================================================================
 # P1 -- DATA SOURCES
@@ -44,19 +88,23 @@ SOURCES <- list(
   
   severity = list(
     what = "Annual collision totals and severity, including road-user collisions, injuries and fatalities",
-    format = "csv",
-    get = "download",
-    link = "https://data.edmonton.ca/d/77sf-j5rj",
-    file = "data/raw/collision_severity.csv",
+    format = "api",
+    get = "api",
+    link = API_CONFIG$severity$url,
+    portal = API_CONFIG$severity$portal,
+    licence = OPEN_DATA_LICENSE, licence_url = OPEN_DATA_LICENSE_URL,
+    file = "data/sample/severity",
     owner = "Ethan Stevenson"
   ),
   
   locations = list(
     what = "Top collision locations, including year, location type, rank, location description and collision count",
-    format = "csv",
-    get = "download",
-    link = "https://data.edmonton.ca/d/mf6n-s5ts",
-    file = "data/raw/top_collision_locations.csv",
+    format = "api",
+    get = "api",
+    link = API_CONFIG$locations$url,
+    portal = API_CONFIG$locations$portal,
+    licence = OPEN_DATA_LICENSE, licence_url = OPEN_DATA_LICENSE_URL,
+    file = "data/sample/locations",
     owner = "Ethan Stevenson"
   ),
   
@@ -64,17 +112,21 @@ SOURCES <- list(
     what = "Annual Collision Report temporal data for examining when collisions occur",
     format = "api",
     get = "api",
-    link = TEMPORAL_URL,
+    link = API_CONFIG$temporal$url,
+    portal = API_CONFIG$temporal$portal,
+    licence = OPEN_DATA_LICENSE, licence_url = OPEN_DATA_LICENSE_URL,
     file = "data/sample/temporal",
     owner = "Vedsai Vangapandu"
   ),
   
   injuries = list(
     what = "Annual collision fatalities and injuries",
-    format = "csv",
-    get = "download",
-    link = "https://data.edmonton.ca/d/brx6-rwhf",
-    file = "data/raw/collision_injuries.csv",
+    format = "api",
+    get = "api",
+    link = API_CONFIG$injuries$url,
+    portal = API_CONFIG$injuries$portal,
+    licence = OPEN_DATA_LICENSE, licence_url = OPEN_DATA_LICENSE_URL,
+    file = "data/sample/injuries",
     owner = "Vedsai Vangapandu"
   )
   
@@ -194,20 +246,18 @@ LINKS <- list(
 )
 
 # =============================================================================
-# LAB 8 HANDOFF NOTES
+# LAB 8 / M2 HANDOFF NOTES
 # =============================================================================
 
 DB_PATH <- "data/db/project.sqlite"              # built by scripts/05_load_db.R
 
-# B1: API configuration is defined above.
-#
-# B2: Update scripts/01_extract.R to download temporal records
-# using api_get_pages() when USE_SAVED_SAMPLE is FALSE.
-#
-# B3: After a successful API download, copy the JSON files:
-# save_as_sample("data/raw/api/temporal", "data/sample/temporal")
-#
+# M2 Task 1 (done): all four API settings are in API_CONFIG above.
+# B2: scripts/01_extract.R downloads all four sources with api_get_pages_httr2()
+#     (R/functions_api.R) when USE_SAVED_SAMPLE is FALSE.
+# B3: scripts/refresh_api_samples.R downloads all four live, verifies every
+#     count, then replaces data/sample/<source>/ and data/sample/api_manifest.csv.
 # B4: Clean the extracted API records, check the table key,
-# and save data/interim/temporal_clean.csv.
+#     and save data/interim/<source>_clean.csv (scripts/02_clean.R).
+# M2 Task 3: scripts/04_checks.R reconciles 2019-2023 annual totals.
 #
 # Keep USE_SAVED_SAMPLE set to TRUE for final submission.

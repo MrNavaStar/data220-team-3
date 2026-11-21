@@ -25,3 +25,6 @@ suppressPackageStartupMessages({
 for (part in c("setup", "read", "inspect", "fix", "derive", "join", "check", "database")) {
   source(paste0("R/functions_", part, ".R"))
 }
+
+# M2 API requests: httr2, response logging, robust Socrata pagination.
+source("R/functions_api.R")
