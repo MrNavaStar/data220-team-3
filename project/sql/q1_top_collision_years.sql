@@ -6,7 +6,7 @@
 
 SELECT year,
        total_collisions,
-       ROUND(collisions_per_1_000_population, 2) AS collisions_per_1000_pop
+       ROUND(collisions_per_1_000, 2) AS collisions_per_1000_pop
 FROM severity
 ORDER BY total_collisions DESC
 LIMIT 5;

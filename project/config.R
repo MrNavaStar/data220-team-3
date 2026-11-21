@@ -168,6 +168,43 @@ SOURCES <- list(
 # CHECK: verify candidate keys with check_key() after cleaning.
 # API records must be inspected again during Lab 8 B4.
 
+# FOUND: M2 Task 5 -- location_type changes in 2022.
+#   2019–2021: "Midblock" and "Intersection"/"INTERSECTION".
+#   2022+: "MID AVENUE", "MID STREET", "INTERSECTION", "SOUTH OF INTERSECTION".
+#   Midblock was split into MID AVENUE and MID STREET; ranks restart within
+#   each type.
+# DECISION: standardize_text(case = "title") produces "Midblock", "Mid Avenue",
+#   "Mid Street", "Intersection", "South Of Intersection".  We keep them
+#   separate (no merge back to Midblock).  For Q1 ranking comparisons, we
+#   compare within the Intersection category only (see reports/M2_location_types.md
+#   for the full decision and rationale).
+
+# FOUND: M2 Task 6 -- severity labels differ across years and datasets.
+#   Temporal: "Serious" (2019), "Major" (2020–2023).
+#   Injuries: "Serious" (2019, 2022–2023), "Major" (2020–2021).
+#   City metadata for the injuries file (brx6-rwhf) describes injury_severity
+#   as "Minor, Serious, Fatal" -- only three labels.  Major appears as an
+#   undocumented alias for Serious in 2020–2021.
+#   Both labels reconcile exactly to severity.serious_injury_* in 04_checks.R.
+# DECISION: treat "Serious" and "Major" as the same tier (serious) in all
+#   analysis, but flag the label inconsistency in reports.  See
+#   M2_reporting_change_notes.md §1 item 6.
+
+# FOUND: M2 Task 7 -- temporal dimension details.
+#   Hours run 1–24 (all 24 hours present).
+#   "Evening" (hour_group) covers hours 1–6 AND 19–24 -- a single label for
+#   two disjoint hour ranges.  This is a quirk of the City's classification.
+#   March, June, September and December each appear in two seasons:
+#     March:    SPRING + WINTER
+#     June:     SPRING + SUMMER
+#     September: FALL + SUMMER
+#     December: WINTER + FALL
+#   hour_group follows deterministically from hour, so it is redundant.
+# DECISION: remove "hour_group" from the temporal key (TABLES$temporal$key).
+#   It is still present in the processed table for reference but is not part
+#   of the key.  Season overlap is expected (rows belong to both the month's
+#   season and the hour's season).  We do not drop any rows for this.
+
 # =============================================================================
 # P4 -- PLANNED TABLES
 # =============================================================================
@@ -192,13 +229,12 @@ TABLES <- list(
   ),
   
   temporal = list(
-    grain = "one row per year, season, month, hour, hour group, weekend flag, weekday, and collision classification",
+    grain = "one row per year, season, month, hour, weekend flag, weekday, and collision classification",
     key = c(
       "year",
       "season",
       "month_name",
       "hour",
-      "hour_group",
       "weekend_flag",
       "day_of_week",
       "collision_classification"
@@ -259,5 +295,13 @@ DB_PATH <- "data/db/project.sqlite"              # built by scripts/05_load_db.R
 # B4: Clean the extracted API records, check the table key,
 #     and save data/interim/<source>_clean.csv (scripts/02_clean.R).
 # M2 Task 3: scripts/04_checks.R reconciles 2019-2023 annual totals.
+# M2 Task 2: scripts/04_10_joins.R aggregates each table to year and joins them
+#     with severity on year (output/yearly_summary.csv).
+# M2 Task 5: reports/M2_location_types.md documents the Midblock→MID AVENUE/MID
+#     STREET split and the ranking comparison decision for Q1.
+# M2 Task 6: reports/M2_reporting_change_notes.md §1 item 6 documents the
+#     Serious/Major label inconsistency across years and datasets.
+# M2 Task 7: hour_group removed from TABLES$temporal$key in config.R;
+#     documentation in the P3 section above.
 #
 # Keep USE_SAVED_SAMPLE set to TRUE for final submission.

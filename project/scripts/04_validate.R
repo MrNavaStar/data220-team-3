@@ -24,19 +24,27 @@ check_range(locations$collision_count, 0, 100000, "collision_count")
 check_range(temporal$hour, 0, 24, "hour")
 
 # Allowed-value checks
+# M2 Task 5: location_type after title-case standardization.
+# Midblock, Mid Avenue, Mid Street, Intersection, South Of Intersection.
 check_allowed(locations$location_type,
               c("Intersection", "Midblock", "Mid Street", "Mid Avenue",
                 "South Of Intersection"), "location_type")
-check_allowed(temporal$season, c("Winter", "Spring", "Summer"), "season")
+
+# M2 Task 7: season includes Fall (was missing from earlier checks).
+check_allowed(temporal$season, c("Winter", "Spring", "Summer", "Fall"), "season")
+
+# M2 Task 6: collision_classification includes Major (2020+) as alias for Serious.
 check_allowed(temporal$collision_classification,
-              c("Minor", "Pdo", "Serious", "Fatal"), "collision_classification")
+              c("Minor", "Pdo", "Serious", "Fatal", "Major"), "collision_classification")
+
+# M2 Task 6: injury_severity includes Major (2020-2021) as alias for Serious.
 check_allowed(injuries$injury_severity, c("Fatal", "Serious", "Minor", "Major"),
               "injury_severity")
 
 save_quality_report(
   report_row("03_transform", "severity",  14, nrow(severity),  "one row per year"),
   report_row("03_transform", "locations", nrow(locations), nrow(locations), "year + type + rank + desc"),
-  report_row("03_transform", "temporal",  nrow(temporal),  nrow(temporal),  "8-field key; source_file dropped"),
+  report_row("03_transform", "temporal",  nrow(temporal),  nrow(temporal),  "7-field key (hour_group removed per M2 Task 7); source_file, collisions, hour_group dropped"),
   report_row("03_transform", "injuries",  nrow(injuries),  nrow(injuries),  "sum_of_injuries_and_fatalities dropped")
 )
 

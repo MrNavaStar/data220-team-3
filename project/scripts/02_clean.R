@@ -50,6 +50,9 @@ check_no_missing(injuries, c("year", "sum_of_injuries_and_fatalities"), "injurie
 
 # FOUND:    count_values(injuries, "injury_mode") shows the source spelling
 #           "VEHICLE PASSENGR"; count_values(injuries, "gender") shows "Others".
+# M2 Task 6: injury_severity uses "Serious" in 2019/2022-2023 and "Major" in 2020-2021.
+#           The City's metadata lists only "Minor, Serious, Fatal" for this field.
+#           Both labels reconcile to severity.total_serious_injuries (verified in 04_checks.R).
 # DECISION: standardize_text() fixes case and spacing; recode_values() corrects the
 #           documented Injury Mode spelling without merging the "Others" category.
 injuries <- injuries |>
@@ -107,7 +110,10 @@ check_no_missing(temporal, c("year", "hour", "collisions"), "temporal numeric fi
 # FOUND: count_values(temporal, "collision_classification") shows labels like
 # "Minor", "PDO", "Major". count_values(temporal, "weekend_flag") shows "WEEKDAY",
 # "WEEKEND". count_values(temporal, "season") shows "WINTER", "SPRING", etc.
+# M2 Task 6: "Major" replaces "Serious" in the temporal file from 2020 onwards.
+# M2 Task 7: "Evening" (hour_group) covers hours 1–6 AND 19–24.
 # DECISION: standardize_text() ensures consistent capitalization for all text columns.
+# M2 Task 7: hour_group is removed in 03_transform.R because it follows from hour.
 temporal <- temporal |>
   mutate(across(
     c(season, month_name, hour_group, weekend_flag, day_of_week, collision_classification),
@@ -115,7 +121,9 @@ temporal <- temporal |>
   ))
 
 # CHECK: the key columns have consistent text formatting.
-# CHECK: verify the table key is unique with check_key().
+# M2 Task 7: hour_group is NOT in the table key (it follows from hour).
+#         It is retained in the clean table for reference but dropped in 03_transform.R.
+# CHECK: verify the table key (without hour_group) is unique with check_key().
 check_key(temporal, TABLES$temporal$key, "temporal")
 save_csv(temporal, "data/interim/temporal_clean.csv")
 
