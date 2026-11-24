@@ -33,7 +33,7 @@ dir.create("output/charts", recursive = TRUE, showWarnings = FALSE)
 
 # Replace this text ONCE, here. Every chart below reuses it with caption = SOURCE,
 # so no chart is left saying "TODO".
-SOURCE <- "Source: TODO (where your data comes from, and the date you collected it)"
+SOURCE <- "Source: City of Edmonton Open Data Portal (data.edmonton.ca),\nAnnual Collision Report datasets, retrieved 20 Nov 2026"
 
 # ---- read your cleaned tables ----------------------------------------------------------
 # From the cleaned CSV files that 02_clean.R wrote:
@@ -48,11 +48,21 @@ SOURCE <- "Source: TODO (where your data comes from, and the date you collected 
 #   dbDisconnect(con)
 
 # your tables here
+# temporal: collisions per year/month/hour/day/classification (column "collisions").
+# injuries: people injured or killed per year/severity/age/gender/control/mode
+#           (column "sum_of_injuries_and_fatalities").
+# Both are aggregated tables, so charts add up these count columns instead of counting rows.
+temporal <- read.csv("data/interim/temporal_clean.csv")
+injuries <- read.csv("data/interim/injuries_clean.csv")
 
 
 # =============================== B1 ====================================================
-# PURPOSE: TODO
-# CHART:   TODO
+# PURPOSE: (Q3) At what time of day do collisions happen, and is the pattern different on
+#          weekdays and weekends? (2019-2023)
+# CHART:   line chart -- hour of day is ordered in time, so a line shows how collisions
+#          rise and fall through the day; one line each for weekdays and weekends.
+#          2019-2023 has 1,304 weekdays but only 522 weekend days, so each line shows the
+#          average collisions per day, not the total.
 #
 # Example of a finished block, the same one as on page 3 of the handout
 # (delete it and write your own):
@@ -70,18 +80,69 @@ SOURCE <- "Source: TODO (where your data comes from, and the date you collected 
 #   # FINDING: Lattes earned $8,778 and drip coffee $7,007: together 51% of the $30,830 total.
 #   #          Hot chocolate earned the least ($2,644).
 
-# your chart B1 here
+# Number of weekdays and weekend days in 2019-2023 (%u gives 6 = Saturday, 7 = Sunday).
+days <- data.frame(date = seq(as.Date("2019-01-01"), as.Date("2023-12-31"), by = "day")) |>
+  mutate(weekend_flag = if_else(format(date, "%u") %in% c("6", "7"), "Weekend", "Weekday")) |>
+  count(weekend_flag, name = "days")
 
-# FINDING: TODO
+# Hour 1 = 12:01-1:00 a.m. ... hour 24 = 11:01 p.m.-midnight (City metadata).
+# Hour 0 is labelled "Invalid" by the City (1 collision), so it is left out.
+hourly <- temporal |>
+  filter(hour >= 1) |>
+  group_by(weekend_flag, hour) |>
+  summarise(collisions = sum(collisions), .groups = "drop") |>
+  left_join(days, by = "weekend_flag") |>
+  mutate(per_day = collisions / days)
+
+b1 <- ggplot(hourly, aes(x = hour, y = per_day, colour = weekend_flag)) +
+  geom_line() +
+  geom_point() +
+  scale_x_continuous(breaks = c(3, 6, 9, 12, 15, 18, 21, 24)) +
+  expand_limits(y = 0) +
+  labs(title = "Weekday collisions peak at 4-5 p.m. (6.3 per day);\nweekends peak earlier and lower (3.3 per day at 2-3 p.m.)",
+       x = "Hour of day, 2019-2023 (17 = 4:01-5:00 p.m.)",
+       y = "Average collisions per day", colour = NULL, caption = SOURCE)
+b1
+ggsave("output/charts/B1_collisions_by_hour.png", plot = b1, width = 7, height = 4, dpi = 150)
+
+# FINDING: On weekdays, collisions peak in the hour ending 5 p.m. (8,210 collisions, an
+#          average of 6.3 per weekday) and are lowest at 2-3 a.m. (0.23 per day). Weekends
+#          have no rush-hour peaks: they peak at 2-3 p.m. with 3.3 per day. Overall there were
+#          57.8 collisions per weekday and 38.1 per weekend day.
 
 
 # =============================== B2 ====================================================
-# PURPOSE: TODO
-# CHART:   TODO
+# PURPOSE: (Q4) Which road users make up most of the people killed or seriously injured in
+#          collisions? (2019-2023)
+# CHART:   bar chart -- one bar per road-user group (a category), sorted by size, split
+#          into fatal and serious injuries.
+#          Minor injuries are left out: after Collision Reporting Centres opened in Sept
+#          2022, recorded minor injuries rose about five-fold (1,816 in 2021 to 10,670 in
+#          2023). The City attributes this rise to self-reporting at the centres, so these
+#          counts are not comparable across years. "Serious" (2019, 2022-2023) and
+#          "Major" (2020-2021) are the same tier (M2 Task 6), so both count as serious.
+#          E-scooter riders, Other and Unknown (41 people) are grouped as "Other or unknown".
+ksi_by_mode <- injuries |>
+  filter(injury_severity %in% c("Serious", "Major", "Fatal")) |>
+  mutate(severity = if_else(injury_severity == "Fatal", "Fatal", "Serious injury"),
+         mode = if_else(injury_mode %in% c("E-Scooter Rider", "Other", "Unknown"),
+                        "Other or unknown", injury_mode)) |>
+  group_by(mode, severity) |>
+  summarise(people = sum(sum_of_injuries_and_fatalities), .groups = "drop")
 
-# your chart B2 here
+b2 <- ggplot(ksi_by_mode, aes(x = people, y = reorder(mode, people, sum), fill = severity)) +
+  geom_col() +
+  scale_fill_manual(values = c("Fatal" = "firebrick", "Serious injury" = "steelblue")) +
+  labs(title = "Drivers are 48% of the 1,520 people killed or seriously injured;\npedestrians are next (280 people, including 19 deaths)",
+       x = "People killed or seriously injured, 2019-2023", y = NULL, fill = NULL,
+       caption = SOURCE)
+b2
+ggsave("output/charts/B2_serious_fatal_by_road_user.png", plot = b2, width = 7, height = 4, dpi = 150)
 
-# FINDING: TODO
+# FINDING: Of 1,520 people killed or seriously injured in 2019-2023, 733 (48%) were vehicle
+#          drivers and 280 (18%) were pedestrians, followed by passengers (222), motorcyclists
+#          (136) and bicyclists (108). Pedestrians account for 19 of the 80 deaths (24%),
+#          second only to drivers (27).
 
 
 # =============================== B3 ====================================================
