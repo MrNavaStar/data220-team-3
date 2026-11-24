@@ -1,0 +1,313 @@
+show_id,show,season,episode,episode_no,airdate,runtime_min,rating,title
+82,Game of Thrones,1,1,1,2011-04-17,60,8.2,Winter is Coming
+82,Game of Thrones,1,2,2,2011-04-24,60,8.2,The Kingsroad
+82,Game of Thrones,1,3,3,2011-05-01,60,8.0,Lord Snow
+82,Game of Thrones,1,4,4,2011-05-08,60,8.2,"Cripples, Bastards, and Broken Things"
+82,Game of Thrones,1,5,5,2011-05-15,60,8.5,The Wolf and the Lion
+82,Game of Thrones,1,6,6,2011-05-22,60,8.6,A Golden Crown
+82,Game of Thrones,1,7,7,2011-05-29,60,8.8,You Win or You Die
+82,Game of Thrones,1,8,8,2011-06-05,60,8.2,The Pointy End
+82,Game of Thrones,1,9,9,2011-06-12,60,8.9,Baelor
+82,Game of Thrones,1,10,10,2011-06-19,60,8.9,Fire and Blood
+82,Game of Thrones,2,1,11,2012-04-01,60,8.2,The North Remembers
+82,Game of Thrones,2,2,12,2012-04-08,60,7.8,The Night Lands
+82,Game of Thrones,2,3,13,2012-04-15,60,8.2,What is Dead May Never Die
+82,Game of Thrones,2,4,14,2012-04-22,60,8.2,Garden of Bones
+82,Game of Thrones,2,5,15,2012-04-29,60,7.9,The Ghost of Harrenhal
+82,Game of Thrones,2,6,16,2012-05-06,60,8.8,The Old Gods and the New
+82,Game of Thrones,2,7,17,2012-05-13,60,8.2,A Man Without Honor
+82,Game of Thrones,2,8,18,2012-05-20,60,8.3,The Prince of Winterfell
+82,Game of Thrones,2,9,19,2012-05-27,60,9.2,Blackwater
+82,Game of Thrones,2,10,20,2012-06-03,60,9.0,Valar Morghulis
+82,Game of Thrones,3,1,21,2013-03-31,60,7.9,Valar Dohaeris
+82,Game of Thrones,3,2,22,2013-04-07,60,7.9,"Dark Wings, Dark Words"
+82,Game of Thrones,3,3,23,2013-04-14,60,8.3,Walk of Punishment
+82,Game of Thrones,3,4,24,2013-04-21,60,8.9,And Now His Watch is Ended
+82,Game of Thrones,3,5,25,2013-04-28,60,8.7,Kissed by Fire
+82,Game of Thrones,3,6,26,2013-05-05,60,8.3,The Climb
+82,Game of Thrones,3,7,27,2013-05-12,60,7.9,The Bear and the Maiden Fair
+82,Game of Thrones,3,8,28,2013-05-19,60,8.6,Second Sons
+82,Game of Thrones,3,9,29,2013-06-02,60,9.1,The Rains of Castamere
+82,Game of Thrones,3,10,30,2013-06-09,60,8.0,Mhysa
+82,Game of Thrones,4,1,31,2014-04-06,60,8.2,Two Swords
+82,Game of Thrones,4,2,32,2014-04-13,60,9.0,The Lion and the Rose
+82,Game of Thrones,4,3,33,2014-04-20,60,7.9,Breaker of Chains
+82,Game of Thrones,4,4,34,2014-04-27,60,7.9,Oathkeeper
+82,Game of Thrones,4,5,35,2014-05-04,60,7.8,First of His Name
+82,Game of Thrones,4,6,36,2014-05-11,60,8.4,The Laws of Gods and Men
+82,Game of Thrones,4,7,37,2014-05-18,60,8.2,Mockingbird
+82,Game of Thrones,4,8,38,2014-06-01,60,8.8,The Mountain and the Viper
+82,Game of Thrones,4,9,39,2014-06-08,60,8.7,The Watchers on the Wall
+82,Game of Thrones,4,10,40,2014-06-15,60,8.3,The Children
+82,Game of Thrones,5,1,41,2015-04-12,60,7.6,The Wars to Come
+82,Game of Thrones,5,2,42,2015-04-19,60,7.6,The House of Black and White
+82,Game of Thrones,5,3,43,2015-04-26,60,7.6,High Sparrow
+82,Game of Thrones,5,4,44,2015-05-03,60,7.4,Sons of the Harpy
+82,Game of Thrones,5,5,45,2015-05-10,60,7.6,Kill the Boy
+82,Game of Thrones,5,6,46,2015-05-17,60,7.0,"Unbowed, Unbent, Unbroken"
+82,Game of Thrones,5,7,47,2015-05-24,60,8.0,The Gift
+82,Game of Thrones,5,8,48,2015-05-31,60,8.8,Hardhome
+82,Game of Thrones,5,9,49,2015-06-07,60,7.9,The Dance of Dragons
+82,Game of Thrones,5,10,50,2015-06-14,60,7.9,Mother's Mercy
+82,Game of Thrones,6,1,51,2016-04-24,60,7.4,The Red Woman
+82,Game of Thrones,6,2,52,2016-05-01,60,7.8,Home
+82,Game of Thrones,6,3,53,2016-05-08,60,7.4,Oathbreaker
+82,Game of Thrones,6,4,54,2016-05-15,60,7.8,Book of the Stranger
+82,Game of Thrones,6,5,55,2016-05-22,60,7.9,The Door
+82,Game of Thrones,6,6,56,2016-05-29,60,7.5,Blood of My Blood
+82,Game of Thrones,6,7,57,2016-06-05,60,7.5,The Broken Man
+82,Game of Thrones,6,8,58,2016-06-12,60,7.2,No One
+82,Game of Thrones,6,9,59,2016-06-19,60,8.4,Battle of the Bastards
+82,Game of Thrones,6,10,60,2016-06-26,69,8.9,The Winds of Winter
+82,Game of Thrones,7,1,61,2017-07-16,60,7.3,Dragonstone
+82,Game of Thrones,7,2,62,2017-07-23,60,7.5,Stormborn
+82,Game of Thrones,7,3,63,2017-07-30,60,7.7,The Queen's Justice
+82,Game of Thrones,7,4,64,2017-08-06,60,8.1,The Spoils of War
+82,Game of Thrones,7,5,65,2017-08-13,60,7.7,Eastwatch
+82,Game of Thrones,7,6,66,2017-08-20,60,8.0,Beyond the Wall
+82,Game of Thrones,7,7,67,2017-08-27,60,8.1,The Dragon and the Wolf
+82,Game of Thrones,8,1,68,2019-04-14,60,7.0,Winterfell
+82,Game of Thrones,8,2,69,2019-04-21,60,7.0,A Knight of the Seven Kingdoms
+82,Game of Thrones,8,3,70,2019-04-28,90,7.2,The Long Night
+82,Game of Thrones,8,4,71,2019-05-05,78,6.1,The Last of the Starks
+82,Game of Thrones,8,5,72,2019-05-12,79,6.2,The Bells
+82,Game of Thrones,8,6,73,2019-05-19,80,5.3,The Iron Throne
+169,Breaking Bad,1,1,1,2008-01-20,60,8.3,Pilot
+169,Breaking Bad,1,2,2,2008-01-27,60,7.9,Cat's in the Bag...
+169,Breaking Bad,1,3,3,2008-02-10,60,8.1,...and the Bag's in the River
+169,Breaking Bad,1,4,4,2008-02-17,60,7.6,Cancer Man
+169,Breaking Bad,1,5,5,2008-02-24,60,7.8,Gray Matter
+169,Breaking Bad,1,6,6,2008-03-02,60,8.8,Crazy Handful of Nothin'
+169,Breaking Bad,1,7,7,2008-03-09,60,8.0,A No-Rough-Stuff-Type Deal
+169,Breaking Bad,2,1,8,2009-03-08,60,7.9,Seven Thirty-Seven
+169,Breaking Bad,2,2,9,2009-03-15,60,8.4,Grilled
+169,Breaking Bad,2,3,10,2009-03-22,60,7.9,Bit by a Dead Bee
+169,Breaking Bad,2,4,11,2009-03-29,60,7.5,Down
+169,Breaking Bad,2,5,12,2009-04-05,60,7.9,Breakage
+169,Breaking Bad,2,6,13,2009-04-12,60,8.3,Peekaboo
+169,Breaking Bad,2,7,14,2009-04-19,60,8.1,Negro Y Azul
+169,Breaking Bad,2,8,15,2009-04-26,60,8.7,Better Call Saul
+169,Breaking Bad,2,9,16,2009-05-03,60,8.4,4 Days Out
+169,Breaking Bad,2,10,17,2009-05-10,60,8.0,Over
+169,Breaking Bad,2,11,18,2009-05-17,60,8.0,Mandala
+169,Breaking Bad,2,12,19,2009-05-24,60,8.8,Phoenix
+169,Breaking Bad,2,13,20,2009-05-31,60,8.3,ABQ
+169,Breaking Bad,3,1,21,2010-03-21,60,7.8,No Más
+169,Breaking Bad,3,2,22,2010-03-28,60,8.0,Caballo sin Nombre
+169,Breaking Bad,3,3,23,2010-04-04,60,7.9,I.F.T.
+169,Breaking Bad,3,4,24,2010-04-11,60,7.9,Green Light
+169,Breaking Bad,3,5,25,2010-04-18,60,8.1,Más
+169,Breaking Bad,3,6,26,2010-04-25,60,8.8,Sunset
+169,Breaking Bad,3,7,27,2010-05-02,60,9.2,One Minute
+169,Breaking Bad,3,8,28,2010-05-09,60,7.9,I See You
+169,Breaking Bad,3,9,29,2010-05-16,60,7.9,Kafkaesque
+169,Breaking Bad,3,10,30,2010-05-23,60,7.3,Fly
+169,Breaking Bad,3,11,31,2010-05-30,60,7.9,Abiquiu
+169,Breaking Bad,3,12,32,2010-06-06,60,9.2,Half Measures
+169,Breaking Bad,3,13,33,2010-06-13,60,9.1,Full Measure
+169,Breaking Bad,4,1,34,2011-07-17,60,8.2,Box Cutter
+169,Breaking Bad,4,2,35,2011-07-24,60,7.8,Thirty-Eight Snub
+169,Breaking Bad,4,3,36,2011-07-31,60,7.3,Open House
+169,Breaking Bad,4,4,37,2011-08-07,60,7.8,Bullet Points
+169,Breaking Bad,4,5,38,2011-08-14,60,7.7,Shotgun
+169,Breaking Bad,4,6,39,2011-08-21,60,7.8,Cornered
+169,Breaking Bad,4,7,40,2011-08-28,60,8.2,Problem Dog
+169,Breaking Bad,4,8,41,2011-09-04,60,8.3,Hermanos
+169,Breaking Bad,4,9,42,2011-09-11,60,8.2,Bug
+169,Breaking Bad,4,10,43,2011-09-18,60,9.1,Salud
+169,Breaking Bad,4,11,44,2011-09-25,60,9.0,Crawl Space
+169,Breaking Bad,4,12,45,2011-10-02,60,9.0,End Times
+169,Breaking Bad,4,13,46,2011-10-09,60,9.1,Face Off
+169,Breaking Bad,5,1,47,2012-07-15,60,7.7,Live Free or Die
+169,Breaking Bad,5,2,48,2012-07-22,60,7.8,Madrigal
+169,Breaking Bad,5,3,49,2012-07-29,60,7.6,Hazard Pay
+169,Breaking Bad,5,4,50,2012-08-05,60,7.4,Fifty-One
+169,Breaking Bad,5,5,51,2012-08-12,60,8.3,Dead Freight
+169,Breaking Bad,5,6,52,2012-08-19,60,7.8,Buyout
+169,Breaking Bad,5,7,53,2012-08-26,60,8.3,Say My Name
+169,Breaking Bad,5,8,54,2012-09-02,60,8.9,Gliding Over All
+169,Breaking Bad,5,9,55,2013-08-11,60,8.3,Blood Money
+169,Breaking Bad,5,10,56,2013-08-18,60,7.9,Buried
+169,Breaking Bad,5,11,57,2013-08-25,60,8.1,Confessions
+169,Breaking Bad,5,12,58,2013-09-01,60,7.3,Rabid Dog
+169,Breaking Bad,5,13,59,2013-09-08,60,8.3,To'hajiilee
+169,Breaking Bad,5,14,60,2013-09-15,60,9.1,Ozymandias
+169,Breaking Bad,5,15,61,2013-09-22,60,8.2,Granite State
+169,Breaking Bad,5,16,62,2013-09-29,60,8.0,Felina
+2993,Stranger Things,1,1,1,2016-07-15,49,8.0,Chapter One: The Vanishing of Will Byers
+2993,Stranger Things,1,2,2,2016-07-15,56,7.8,Chapter Two: The Weirdo on Maple Street
+2993,Stranger Things,1,3,3,2016-07-15,52,8.3,"Chapter Three: Holly, Jolly"
+2993,Stranger Things,1,4,4,2016-07-15,51,8.4,Chapter Four: The Body
+2993,Stranger Things,1,5,5,2016-07-15,53,8.3,Chapter Five: The Flea and the Acrobat
+2993,Stranger Things,1,6,6,2016-07-15,47,8.5,Chapter Six: The Monster
+2993,Stranger Things,1,7,7,2016-07-15,42,8.4,Chapter Seven: The Bathtub
+2993,Stranger Things,1,8,8,2016-07-15,55,8.6,Chapter Eight: The Upside Down
+2993,Stranger Things,2,1,9,2017-10-27,48,7.9,Chapter One: MADMAX
+2993,Stranger Things,2,2,10,2017-10-27,56,8.0,"Chapter Two: Trick or Treat, Freak"
+2993,Stranger Things,2,3,11,2017-10-27,51,7.9,Chapter Three: The Pollywog
+2993,Stranger Things,2,4,12,2017-10-27,46,8.0,Chapter Four: Will the Wise
+2993,Stranger Things,2,5,13,2017-10-27,58,8.3,Chapter Five: Dig Dug
+2993,Stranger Things,2,6,14,2017-10-27,52,8.4,Chapter Six: The Spy
+2993,Stranger Things,2,7,15,2017-10-27,46,7.0,Chapter Seven: The Lost Sister
+2993,Stranger Things,2,8,16,2017-10-27,48,8.5,Chapter Eight: The Mind Flayer
+2993,Stranger Things,2,9,17,2017-10-27,62,8.5,Chapter Nine: The Gate
+2993,Stranger Things,3,1,18,2019-07-04,51,7.4,"Chapter One: Suzie, Do You Copy?"
+2993,Stranger Things,3,2,19,2019-07-04,50,7.4,Chapter Two: The Mall Rats
+2993,Stranger Things,3,3,20,2019-07-04,50,7.6,Chapter Three: The Case of the Missing Lifeguard
+2993,Stranger Things,3,4,21,2019-07-04,53,8.0,Chapter Four: The Sauna Test
+2993,Stranger Things,3,5,22,2019-07-04,52,7.9,Chapter Five: The Flayed
+2993,Stranger Things,3,6,23,2019-07-04,60,7.8,Chapter Six: E Pluribus Unum
+2993,Stranger Things,3,7,24,2019-07-04,55,8.0,Chapter Seven: The Bite
+2993,Stranger Things,3,8,25,2019-07-04,78,8.1,Chapter Eight: The Battle of Starcourt
+2993,Stranger Things,4,1,26,2022-05-27,78,7.8,Chapter One: The Hellfire Club
+2993,Stranger Things,4,2,27,2022-05-27,77,8.1,Chapter Two: Vecna's Curse
+2993,Stranger Things,4,3,28,2022-05-27,63,8.0,Chapter Three: The Monster and the Superhero
+2993,Stranger Things,4,4,29,2022-05-27,79,8.4,Chapter Four: Dear Billy
+2993,Stranger Things,4,5,30,2022-05-27,75,7.9,Chapter Five: The Nina Project
+2993,Stranger Things,4,6,31,2022-05-27,73,8.1,Chapter Six: The Dive
+2993,Stranger Things,4,7,32,2022-05-27,100,8.4,Chapter Seven: The Massacre at Hawkins Lab
+2993,Stranger Things,4,8,33,2022-07-01,86,8.1,Chapter Eight: Papa
+2993,Stranger Things,4,9,34,2022-07-01,142,8.2,Chapter Nine: The Piggyback
+2993,Stranger Things,5,1,35,2025-11-26,71,7.5,Chapter One: The Crawl
+2993,Stranger Things,5,2,36,2025-11-26,57,7.5,Chapter Two: The Vanishing of Holly Wheeler
+2993,Stranger Things,5,3,37,2025-11-26,69,7.6,Chapter Three: The Turnbow Trap
+2993,Stranger Things,5,4,38,2025-11-26,86,7.9,Chapter Four: Sorcerer
+2993,Stranger Things,5,5,39,2025-12-25,68,7.3,Chapter Five: Shock Jock
+2993,Stranger Things,5,6,40,2025-12-25,75,7.3,Chapter Six: Escape from Camazotz
+2993,Stranger Things,5,7,41,2025-12-25,66,6.8,Chapter Seven: The Bridge
+2993,Stranger Things,5,8,42,2025-12-31,128,7.8,Chapter Eight: The Rightside Up
+175,House of Cards,1,1,1,2013-02-01,57,8.2,Chapter 1
+175,House of Cards,1,2,2,2013-02-01,50,8.2,Chapter 2
+175,House of Cards,1,3,3,2013-02-01,51,7.9,Chapter 3
+175,House of Cards,1,4,4,2013-02-01,49,7.8,Chapter 4
+175,House of Cards,1,5,5,2013-02-01,53,7.8,Chapter 5
+175,House of Cards,1,6,6,2013-02-01,51,7.8,Chapter 6
+175,House of Cards,1,7,7,2013-02-01,54,7.8,Chapter 7
+175,House of Cards,1,8,8,2013-02-01,47,7.5,Chapter 8
+175,House of Cards,1,9,9,2013-02-01,52,7.6,Chapter 9
+175,House of Cards,1,10,10,2013-02-01,53,7.7,Chapter 10
+175,House of Cards,1,11,11,2013-02-01,54,7.9,Chapter 11
+175,House of Cards,1,12,12,2013-02-01,53,7.9,Chapter 12
+175,House of Cards,1,13,13,2013-02-01,50,7.9,Chapter 13
+175,House of Cards,2,1,14,2014-02-14,50,8.1,Chapter 14
+175,House of Cards,2,2,15,2014-02-14,49,7.8,Chapter 15
+175,House of Cards,2,3,16,2014-02-14,52,8.0,Chapter 16
+175,House of Cards,2,4,17,2014-02-14,49,8.1,Chapter 17
+175,House of Cards,2,5,18,2014-02-14,50,7.8,Chapter 18
+175,House of Cards,2,6,19,2014-02-14,52,7.7,Chapter 19
+175,House of Cards,2,7,20,2014-02-14,49,7.8,Chapter 20
+175,House of Cards,2,8,21,2014-02-14,48,8.2,Chapter 21
+175,House of Cards,2,9,22,2014-02-14,50,7.8,Chapter 22
+175,House of Cards,2,10,23,2014-02-14,51,7.5,Chapter 23
+175,House of Cards,2,11,24,2014-02-14,54,7.7,Chapter 24
+175,House of Cards,2,12,25,2014-02-14,48,7.8,Chapter 25
+175,House of Cards,2,13,26,2014-02-14,60,8.2,Chapter 26
+175,House of Cards,3,1,27,2015-02-27,59,6.4,Chapter 27
+175,House of Cards,3,2,28,2015-02-27,55,6.4,Chapter 28
+175,House of Cards,3,3,29,2015-02-27,53,6.5,Chapter 29
+175,House of Cards,3,4,30,2015-02-27,48,6.0,Chapter 30
+175,House of Cards,3,5,31,2015-02-27,52,6.2,Chapter 31
+175,House of Cards,3,6,32,2015-02-27,54,6.5,Chapter 32
+175,House of Cards,3,7,33,2015-02-27,53,5.9,Chapter 33
+175,House of Cards,3,8,34,2015-02-27,44,6.3,Chapter 34
+175,House of Cards,3,9,35,2015-02-27,52,6.4,Chapter 35
+175,House of Cards,3,10,36,2015-02-27,57,6.2,Chapter 36
+175,House of Cards,3,11,37,2015-02-27,53,6.6,Chapter 37
+175,House of Cards,3,12,38,2015-02-27,50,6.4,Chapter 38
+175,House of Cards,3,13,39,2015-02-27,58,6.3,Chapter 39
+175,House of Cards,4,1,40,2016-03-04,49,6.7,Chapter 40
+175,House of Cards,4,2,41,2016-03-04,42,6.7,Chapter 41
+175,House of Cards,4,3,42,2016-03-04,55,7.0,Chapter 42
+175,House of Cards,4,4,43,2016-03-04,43,7.2,Chapter 43
+175,House of Cards,4,5,44,2016-03-04,48,6.8,Chapter 44
+175,House of Cards,4,6,45,2016-03-04,48,6.5,Chapter 45
+175,House of Cards,4,7,46,2016-03-04,52,6.6,Chapter 46
+175,House of Cards,4,8,47,2016-03-04,47,6.6,Chapter 47
+175,House of Cards,4,9,48,2016-03-04,46,7.0,Chapter 48
+175,House of Cards,4,10,49,2016-03-04,57,7.1,Chapter 49
+175,House of Cards,4,11,50,2016-03-04,52,6.5,Chapter 50
+175,House of Cards,4,12,51,2016-03-04,47,6.9,Chapter 51
+175,House of Cards,4,13,52,2016-03-04,56,7.5,Chapter 52
+175,House of Cards,5,1,53,2017-05-30,55,6.0,Chapter 53
+175,House of Cards,5,2,54,2017-05-30,52,6.1,Chapter 54
+175,House of Cards,5,3,55,2017-05-30,53,5.7,Chapter 55
+175,House of Cards,5,4,56,2017-05-30,45,5.8,Chapter 56
+175,House of Cards,5,5,57,2017-05-30,52,5.6,Chapter 57
+175,House of Cards,5,6,58,2017-05-30,55,5.5,Chapter 58
+175,House of Cards,5,7,59,2017-05-30,49,5.4,Chapter 59
+175,House of Cards,5,8,60,2017-05-30,46,5.5,Chapter 60
+175,House of Cards,5,9,61,2017-05-30,55,5.7,Chapter 61
+175,House of Cards,5,10,62,2017-05-30,57,5.1,Chapter 62
+175,House of Cards,5,11,63,2017-05-30,51,5.2,Chapter 63
+175,House of Cards,5,12,64,2017-05-30,54,5.8,Chapter 64
+175,House of Cards,5,13,65,2017-05-30,56,5.6,Chapter 65
+175,House of Cards,6,1,66,2018-11-02,53,5.6,Chapter 66
+175,House of Cards,6,2,67,2018-11-02,53,5.4,Chapter 67
+175,House of Cards,6,3,68,2018-11-02,53,5.4,Chapter 68
+175,House of Cards,6,4,69,2018-11-02,53,5.9,Chapter 69
+175,House of Cards,6,5,70,2018-11-02,59,5.3,Chapter 70
+175,House of Cards,6,6,71,2018-11-02,57,5.4,Chapter 71
+175,House of Cards,6,7,72,2018-11-02,57,5.1,Chapter 72
+175,House of Cards,6,8,73,2018-11-02,55,4.9,Chapter 73
+54198,The Bear,1,1,1,2022-06-23,28,7.4,System
+54198,The Bear,1,2,2,2022-06-23,31,7.7,Hands
+54198,The Bear,1,3,3,2022-06-23,29,7.9,Brigade
+54198,The Bear,1,4,4,2022-06-23,30,8.1,Dogs
+54198,The Bear,1,5,5,2022-06-23,25,8.0,Sheridan
+54198,The Bear,1,6,6,2022-06-23,31,8.0,Ceres
+54198,The Bear,1,7,7,2022-06-23,20,8.7,Review
+54198,The Bear,1,8,8,2022-06-23,48,8.6,Braciole
+54198,The Bear,2,1,9,2023-06-22,29,7.9,Beef
+54198,The Bear,2,2,10,2023-06-22,30,8.0,Pasta
+54198,The Bear,2,3,11,2023-06-22,26,7.9,Sundae
+54198,The Bear,2,4,12,2023-06-22,30,8.3,Honeydew
+54198,The Bear,2,5,13,2023-06-22,33,8.0,Pop
+54198,The Bear,2,6,14,2023-06-22,66,8.4,Fishes
+54198,The Bear,2,7,15,2023-06-22,35,8.8,Forks
+54198,The Bear,2,8,16,2023-06-22,32,8.3,Bolognese
+54198,The Bear,2,9,17,2023-06-22,39,8.2,Omelette
+54198,The Bear,2,10,18,2023-06-22,41,8.6,The Bear
+54198,The Bear,3,1,19,2024-06-26,37,7.9,Tomorrow
+54198,The Bear,3,2,20,2024-06-26,27,7.7,Next
+54198,The Bear,3,3,21,2024-06-26,30,7.6,Doors
+54198,The Bear,3,4,22,2024-06-26,33,7.3,Violet
+54198,The Bear,3,5,23,2024-06-26,34,7.4,Children
+54198,The Bear,3,6,24,2024-06-26,33,8.1,Napkins
+54198,The Bear,3,7,25,2024-06-26,29,7.3,Legacy
+54198,The Bear,3,8,26,2024-06-26,40,7.5,Ice Chips
+54198,The Bear,3,9,27,2024-06-26,43,7.1,Apologies
+54198,The Bear,3,10,28,2024-06-26,43,7.7,Forever
+54198,The Bear,4,1,29,2025-06-25,32,7.7,Groundhogs
+54198,The Bear,4,2,30,2025-06-25,31,7.6,Soubise
+54198,The Bear,4,3,31,2025-06-25,37,7.8,Scallop
+54198,The Bear,4,4,32,2025-06-25,32,7.9,Worms
+54198,The Bear,4,5,33,2025-06-25,33,7.8,Replicants
+54198,The Bear,4,6,34,2025-06-25,29,7.3,Sophie
+54198,The Bear,4,7,35,2025-06-25,69,8.6,Bears
+54198,The Bear,4,8,36,2025-06-25,36,7.7,Green
+54198,The Bear,4,9,37,2025-06-25,38,8.0,Tonnato
+54198,The Bear,4,10,38,2025-06-25,34,8.1,Goodbye
+54198,The Bear,5,1,39,2026-06-25,21,8.2,Soda
+54198,The Bear,5,2,40,2026-06-25,25,8.4,Lamb
+54198,The Bear,5,3,41,2026-06-25,23,8.2,Mint
+54198,The Bear,5,4,42,2026-06-25,39,8.4,Ribs
+54198,The Bear,5,5,43,2026-06-25,28,8.1,Raspberries
+54198,The Bear,5,6,44,2026-06-25,28,8.5,Focaccia
+54198,The Bear,5,7,45,2026-06-25,52,8.8,Caramel
+54198,The Bear,5,8,46,2026-06-25,61,8.8,The Original Beef of Chicagoland
+53647,Wednesday,1,1,1,2022-11-23,59,8.3,Chapter I: Wednesday's Child Is Full of Woe
+53647,Wednesday,1,2,2,2022-11-23,48,8.5,Chapter II: Woe Is the Loneliest Number
+53647,Wednesday,1,3,3,2022-11-23,48,8.4,Chapter III: Friend or Woe
+53647,Wednesday,1,4,4,2022-11-23,49,8.4,Chapter IV: Woe What a Night
+53647,Wednesday,1,5,5,2022-11-23,52,8.1,Chapter V: You Reap What You Woe
+53647,Wednesday,1,6,6,2022-11-23,50,8.4,Chapter VI: Quid Pro Woe
+53647,Wednesday,1,7,7,2022-11-23,47,8.5,Chapter VII: If You Don't Woe Me by Now
+53647,Wednesday,1,8,8,2022-11-23,52,8.6,Chapter VIII: A Murder of Woes
+53647,Wednesday,2,1,9,2025-08-06,60,8.3,Chapter I: Here We Woe Again
+53647,Wednesday,2,2,10,2025-08-06,61,8.3,Chapter II: The Devil You Woe
+53647,Wednesday,2,3,11,2025-08-06,59,8.4,Chapter III: Call of the Woe
+53647,Wednesday,2,4,12,2025-08-06,60,8.4,Chapter IV: If These Woes Could Talk
+53647,Wednesday,2,5,13,2025-09-03,51,8.2,Chapter V: Hyde and Woe Seek
+53647,Wednesday,2,6,14,2025-09-03,69,8.4,Chapter VI: Woe Thyself
+53647,Wednesday,2,7,15,2025-09-03,55,8.4,Chapter VII: Woe Me the Money
+53647,Wednesday,2,8,16,2025-09-03,48,8.4,Chapter VIII: This Means Woe
