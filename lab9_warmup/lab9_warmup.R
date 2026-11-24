@@ -17,18 +17,19 @@ episodes <- read.csv("data/episodes.csv")   # one row per episode of six shows (
 
 # ---- A1 (5 marks): bar chart -- how many episodes does each show have? ------------
 # A category on one axis; geom_bar() counts the rows for you.
-ggplot(episodes, aes(y = ____)) +
-  geom_XXXX(fill = "steelblue") +
-  labs(title = "TODO: your finding in one sentence",
+ggplot(episodes, aes(y = show)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Game of Thrones and House of Cards have the most episodes\n(73 each); Wednesday has the fewest (16)",
        x = "Number of episodes", y = NULL)
 ggsave("figures/A1_episodes_per_show.png", width = 7, height = 4, dpi = 150)
 
 # ---- A2 (5 marks): histogram -- how are the 312 episode ratings spread out? -------
 # One number column. Try binwidth 0.5, then 0.25; keep the one that shows the shape better
 # (you save and submit ONE chart, not both).
-ggplot(episodes, aes(x = ____)) +
-  geom_histogram(binwidth = ____, fill = "steelblue", colour = "white") +
-  labs(title = "TODO: your finding in one sentence",
+# binwidth 0.25 kept: at 0.5 one bar holds 120 episodes and hides the peak at 8.0.
+ggplot(episodes, aes(x = rating)) +
+  geom_histogram(binwidth = 0.25, fill = "steelblue", colour = "white") +
+  labs(title = "Most episodes are rated 7.5 to 9 and peak at 8.0;\na long tail of low ratings reaches down to 4.9",
        x = "Episode rating (out of 10)", y = "Number of episodes")
 ggsave("figures/A2_episode_ratings.png", width = 7, height = 4, dpi = 150)
 
