@@ -36,9 +36,9 @@ ggsave("figures/A2_episode_ratings.png", width = 7, height = 4, dpi = 150)
 # ---- A3 (5 marks): box plot -- how do episode ratings compare across the shows? ---
 # A category on x, a number on y. reorder(show, rating, median) sorts the boxes.
 # Reminder: the line inside a box is the median; the box holds the middle half of the values.
-ggplot(episodes, aes(x = reorder(show, rating, median), y = ____)) +
-  geom_XXXX(fill = "lightsteelblue") +
-  labs(title = "TODO: your finding in one sentence",
+ggplot(episodes, aes(x = reorder(show, rating, median), y = rating)) +
+  geom_boxplot(fill = "lightsteelblue") +
+  labs(title = "Wednesday has the highest median rating (8.4);\nHouse of Cards is the lowest (6.6) with the widest spread (4.9 to 8.2)",
        x = NULL, y = "Episode rating (out of 10)")
 ggsave("figures/A3_ratings_by_show.png", width = 8, height = 4, dpi = 150)
 
@@ -46,11 +46,11 @@ ggsave("figures/A3_ratings_by_show.png", width = 8, height = 4, dpi = 150)
 # Time (episode order) on x, a number on y. Filter to one show first.
 # Describe the OVERALL pattern in your title; the line does not have to rise at every step.
 stranger <- episodes |>
-  filter(show == "____")
+  filter(show == "Stranger Things")
 
-ggplot(stranger, aes(x = ____, y = ____)) +
-  geom_XXXX(colour = "steelblue") +
+ggplot(stranger, aes(x = episode_no, y = runtime_min)) +
+  geom_line(colour = "steelblue") +
   geom_point(colour = "steelblue") +
-  labs(title = "TODO: your finding in one sentence",
+  labs(title = "Stranger Things episodes average 65 minutes and lengthen from season 4 onward;\nseason 4 finale is 142 minutes",
        x = "Episode (1 = first, 42 = last)", y = "Episode length (minutes)")
 ggsave("figures/A4_stranger_things_length.png", width = 7, height = 4, dpi = 150)

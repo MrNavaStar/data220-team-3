@@ -146,21 +146,69 @@ ggsave("output/charts/B2_serious_fatal_by_road_user.png", plot = b2, width = 7, 
 
 
 # =============================== B3 ====================================================
-# PURPOSE: TODO
-# CHART:   TODO
+# PURPOSE: (Q3) How do collision counts vary by season across years (2019-2023)?
+# CHART:   box plot -- season is a category and the number of collisions per
+#          seasonal snapshot varies; a box plot shows the median, spread, and
+#          outliers for each season.  There are 5 years x 4 months per season
+#          = 20 observations per season.
+#
+# Season-level aggregation: the temporal data has one row per month within
+# each season; we sum collisions across the 4 months of each season for each year,
+# giving 20 values per season (5 years x 4 months).
+seasonal <- temporal |>
+  group_by(year, season) |>
+  summarise(season_collisions = sum(collisions), .groups = "drop")
 
-# your chart B3 here
+b3 <- ggplot(seasonal, aes(x = season, y = season_collisions)) +
+  geom_boxplot(fill = "lightgreen", alpha = 0.7) +
+  scale_y_continuous(breaks = seq(0, 8000, by = 2000)) +
+  labs(title = "Winter has the most collisions (median 5,871);\nSpring has the least (median 4,080)",
+       x = "Season, 2019-2023", y = "Collisions per season", caption = SOURCE)
+b3
+ggsave("output/charts/B3_collisions_by_season.png", plot = b3, width = 7, height = 4, dpi = 150)
 
-# FINDING: TODO
+# FINDING: Across 20 seasonal snapshots (5 years x 4 months), winter has the highest
+#          median collision count (5,871) and the widest spread (4,443 to 8,063), while
+#          spring has the lowest median (4,080). Fall and summer are intermediate, with
+#          medians of 5,505 and 4,295 respectively. 2020 had the lowest seasonal totals
+#          across all seasons, dropping to 2,009 in spring.
 
 
 # =============================== B4 ====================================================
-# PURPOSE: TODO
-# CHART:   TODO
+# PURPOSE: (Q4) Is there a relationship between total annual collisions and total
+#          annual injuries/fatalities (2019-2023)?
+# CHART:   scatter plot -- two numeric variables plotted against each other show
+#          whether they move together.  Each point represents one year; the label
+#          shows the year.
+#
+# Annual aggregates: sum all collisions from the temporal table and all injuries
+# (serious + major + fatal) from the injuries table, both by year.
+annual_collisions <- temporal |>
+  group_by(year) |>
+  summarise(total_collisions = sum(collisions), .groups = "drop")
 
-# your chart B4 here
+annual_injuries <- injuries |>
+  filter(injury_severity %in% c("Serious", "Major", "Fatal")) |>
+  group_by(year) |>
+  summarise(total_ksi = sum(sum_of_injuries_and_fatalities), .groups = "drop")
 
-# FINDING: TODO
+annual <- annual_collisions |>
+  left_join(annual_injuries, by = "year")
+
+b4 <- ggplot(annual, aes(x = total_collisions, y = total_ksi)) +
+  geom_point(size = 4, colour = "darkred", alpha = 0.8) +
+  geom_text(aes(label = year), vjust = -1, hjust = 0.5, size = 5) +
+  labs(title = "Years with more collisions have more KSI;\n2022-2023 are the most severe years",
+       x = "Total annual collisions", y = "Total KSI (killed or seriously injured)", caption = SOURCE)
+b4
+ggsave("output/charts/B4_collisions_vs_injuries.png", plot = b4, width = 7, height = 4, dpi = 150)
+
+# FINDING: Across 2019-2023, years with more total collisions tend to have more
+#          killed or seriously injured people (KSI). 2022 and 2023 both have high KSI
+#          (351 and 369 respectively) and similar collision totals (~20,000 each), while
+#          2020 has the fewest collisions (15,804) and the fewest KSI (243). The KSI-to-
+#          collisions ratio rises from 12% in 2020 to 18% in 2023, suggesting a worsening
+#          safety trend even as total collisions remain similar.
 
 
 # More charts? Copy a block and call it B5, B6 ...
